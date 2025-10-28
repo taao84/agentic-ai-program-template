@@ -1,0 +1,52 @@
+ [
+  {
+    "id": "faq1",
+    "question": "What is the return policy?",
+    "answer": "You can return any item within 30 days of purchase for a full refund."
+  },
+  {
+    "id": "faq2",
+    "question": "How do I track my order?",
+    "answer": "Once your order has shipped, you will receive an email with a tracking number."
+  },
+  {
+    "id": "faq3",
+    "question": "Do you ship internationally?",
+    "answer": "Yes, we ship to most countries worldwide. Shipping costs may vary."
+  },
+  {
+    "id": "faq4",
+    "question": "How can I contact customer support?",
+    "answer": "You can reach our customer support team via email at support@example.com or by calling our toll-free number."
+  },
+  {
+    "id": "faq5",
+    "question": "What payment methods do you accept?",
+    "answer": "We accept all major credit cards, PayPal, and Apple Pay."
+  },
+  {
+    "id": "faq6",
+    "question": "Can I change my shipping address?",
+    "answer": "If your order has not yet shipped, you can contact customer support to update your shipping address."
+  },
+  {
+    "id": "faq7",
+    "question": "What are your business hours?",
+    "answer": "Our customer support is available Monday to Friday, from 9 AM to 5 PM EST."
+  },
+  {
+    "id": "faq8",
+    "question": "Do you offer gift wrapping?",
+    "answer": "Yes, we offer gift wrapping for an additional fee. You can select this option at checkout."
+  },
+  {
+    "id": "faq9",
+    "question": "How do I use a discount code?",
+    "answer": "You can apply your discount code in the 'Promo Code' box at checkout."
+  },
+  {
+    "id": "faq10",
+    "question": "What if my item is damaged?",
+    "answer": "If your item arrives damaged, please contact customer support immediately for a replacement or refund."
+  }
+]
