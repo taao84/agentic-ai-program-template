@@ -160,6 +160,11 @@ mlruns/
 node_modules/
 *.tsbuildinfo
 
+#
+# CHROMA DB
+#
+**/chroma_db/
+
 # ------------------------------
 # Misc
 # ------------------------------

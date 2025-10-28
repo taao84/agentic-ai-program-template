@@ -9,27 +9,38 @@ Capture empirical observations comparing prompt variants and model behaviors. Us
 3. Summarize insights after completing stretch assignments.
 
 ## Scoring Rubric (1–5)
-| Score | Instruction Adherence | Reasoning Depth | Style / Persona | Format Fidelity |
-|-------|-----------------------|-----------------|-----------------|-----------------|
-| 1 | Misses key directives | Single sentence | Ignores persona | Broken / ignores |
-| 3 | Mostly follows | Some steps implicit | Partial persona | Minor drift |
-| 5 | Precise & complete | Clear multi-step chain | Fully consistent | Exact, parsable |
+| Score | Instruction Adherence | Reasoning Depth        | Style / Persona  | Format Fidelity  |
+|-------|-----------------------|------------------------|------------------|------------------|
+| 1     | Misses key directives | Single sentence        | Ignores persona  | Broken / ignores |
+| 3     | Mostly follows        | Some steps implicit    | Partial persona  | Minor drift      |
+| 5     | Precise & complete    | Clear multi-step chain | Fully consistent | Exact, parsable  |
 
 ## Failure Mode Tags
 hallucination, verbosity, shallow, drift (format), persona-loss, json-break, constraint-fail
 
 ## Results Table (Populate During Lab)
-| Prompt Pattern | Example Used | Model | Adherence (1–5) | Reasoning (1–5) | Style (1–5) | Format (1–5) | Failure Modes | Notes | Reuse? (Y/N) |
-|----------------|--------------|-------|------------------|-----------------|-------------|--------------|---------------|-------|--------------|
+| Prompt Pattern | Example Used | Model            | Adherence (1–5) | Reasoning (1–5) | Style (1–5) | Format (1–5) | Failure Modes | Notes | Reuse? (Y/N) |
+|----------------|--------------|------------------|-----------------|-----------------|-------------|--------------|---------------|-------|--------------|
+| simple         |              | llama3           | 5               | 5               | 5           | 3            |               |       |              |
+| simple         |              | mistral          | 5               | 3               | 5           | 5            |               |       |              |
+| simple         |              | gemini-2.5-flash | 5               | 5               | 5           | 5            |               |       |              |
+| role           |              | llama3           | 5               | 5               | 5           | 5            |               |       |              |
+| role           |              | mistral          | 3               | 5               | 3           | 5            |               |       |              |
+| role           |              | gemini-2.5-flash | 5               | 5               | 5           | 5            |               |       |              |
+| COT            |              | llama3           | 5               | 5               | 5           | 5            |               |       |              |
+| COT            |              | mistral          | 5               | 3               | 5           | 5            |               |       |              |
+| COT            |              | gemini-2.5-flash | 5               | 5               | 5           | 5            |               |       |              |
+
 
 ## Model Summary (After Initial Pass)
-| Capability | Best Model(s) | Evidence Snippet | Notes |
-|------------|---------------|------------------|-------|
-| Explanatory Clarity | | | |
-| Chain-of-Thought | | | |
-| JSON Adherence | | | |
-| Persona Control | | | |
-| Instruction Strictness | | | |
+| Capability             | Best Model(s)    | Evidence Snippet | Notes |
+|------------------------|------------------|------------------|-------|
+| Explanatory Clarity    | gemini-2.5-flash |                  |       |
+| Chain-of-Thought       | gemini-2.5-flash |                  |       |
+| JSON Adherence         | N/A              |                  |       |
+| Persona Control        | gemini-2.5-flash |                  |       |
+| Instruction Strictness | gemini-2.5-flash |                  |       |
+| Best by cost           | llama3           |                  |       |
 
 ## Insight Log
 Record notable surprises, regressions, or improvements.
@@ -79,5 +90,3 @@ Answer briefly:
     *   Don't phrase your prompt in a way that suggests a desired answer.
 *   **Overly Complex Prompts:**
     *   Break down complex tasks into smaller, more manageable prompts.
-
----

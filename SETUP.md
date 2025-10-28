@@ -58,7 +58,7 @@ export $(grep -v '^#' .env | xargs)
 - ms-toolsai.jupyter
 - GitHub.copilot (optional)
 
-## 7. Pre-commit Hooks (Optional Early) 
+## 7. Pre-commit Hooks (Optional Early)
 Later we can enable:
 ```
 pip install pre-commit
@@ -74,11 +74,11 @@ pytest -q
 ```
 
 ## 10. Troubleshooting
-| Issue | Resolution |
-|-------|------------|
+| Issue            | Resolution                                                  |
+|------------------|-------------------------------------------------------------|
 | Module not found | Activate venv or `pip install -e .` if package layout added |
-| API key error | Ensure exported correct variable name |
-| Rate limit | Implement exponential backoff / caching |
+| API key error    | Ensure exported correct variable name                       |
+| Rate limit       | Implement exponential backoff / caching                     |
 
 ## 11. Next Steps
 - Fill out `PROMPT_PLAYBOOK.md` as you iterate.

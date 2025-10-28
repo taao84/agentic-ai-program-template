@@ -16,7 +16,7 @@ By the end you will be able to:
 ```bash
 # 1. Ensure virtualenv from Week 1 is active
 source .venv/bin/activate            # macOS/Linux
-# or .venv\Scripts\activate         # Windows PowerShell
+# or .venv\Scripts\activate          # Windows PowerShell
 
 # 2. Install new deps (if not already)
 pip install -r requirements.txt

@@ -13,6 +13,7 @@ import google.generativeai as genai
 
 try:  # Optional dependency for .env loading
     from dotenv import load_dotenv  # type: ignore
+
     load_dotenv()
 except Exception:
     pass
@@ -32,18 +33,20 @@ if GEMINI_API_KEY:
 
 # --- Model Clients ---
 
+
 def query_ollama(prompt, model="llama3"):
     """Sends a prompt to a local Ollama server."""
     print(f"\n--- Querying Ollama ({model}) ---")
     try:
         response = requests.post(
             "http://localhost:11434/api/generate",
-            json={"model": model, "prompt": prompt, "stream": False}
+            json={"model": model, "prompt": prompt, "stream": False},
         )
         response.raise_for_status()
         return response.json()["response"]
     except requests.exceptions.RequestException as e:
         return f"Error: Could not connect to Ollama. Is it running? Details: {e}"
+
 
 def query_openai(prompt, model="gpt-3.5-turbo"):
     """Sends a prompt to the OpenAI API."""
@@ -58,6 +61,7 @@ def query_openai(prompt, model="gpt-3.5-turbo"):
     except Exception as e:
         return f"Error querying OpenAI: {e}"
 
+
 def query_anthropic(prompt, model="claude-3-haiku-20240307"):
     """Sends a prompt to the Anthropic API."""
     print(f"\n--- Querying Anthropic ({model}) ---")
@@ -66,15 +70,14 @@ def query_anthropic(prompt, model="claude-3-haiku-20240307"):
     try:
         client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
         response = client.messages.create(
-            model=model,
-            max_tokens=1024,
-            messages=[{"role": "user", "content": prompt}]
+            model=model, max_tokens=1024, messages=[{"role": "user", "content": prompt}]
         )
         return response.content[0].text
     except Exception as e:
         return f"Error querying Anthropic: {e}"
 
-def query_gemini(prompt, model="gemini-pro"):
+
+def query_gemini(prompt, model="gemini-2.5-flash"):
     """Sends a prompt to the Google Gemini API."""
     print(f"\n--- Querying Gemini ({model}) ---")
     if not GEMINI_API_KEY:
@@ -85,6 +88,7 @@ def query_gemini(prompt, model="gemini-pro"):
         return response.text
     except Exception as e:
         return f"Error querying Gemini: {e}"
+
 
 DEFAULT_PROMPTS = {
     "Simple": "Explain photosynthesis.",
@@ -100,12 +104,16 @@ def build_prompts(custom_prompt: str | None) -> Dict[str, str]:
     return prompts
 
 
-def format_summary_row(model_name: str, prompt_name: str, response: str) -> Dict[str, str]:
+def format_summary_row(
+    model_name: str, prompt_name: str, response: str
+) -> Dict[str, str]:
     return {
         "model": model_name,
         "prompt_variant": prompt_name,
         "length": str(len(response.split())) if response else "0",
-        "preview": shorten(response.replace("\n", " "), width=80, placeholder="…") if response else "",
+        "preview": shorten(response.replace("\n", " "), width=80, placeholder="…")
+        if response
+        else "",
     }
 
 
@@ -117,15 +125,33 @@ def write_json(results: List[Dict[str, str]], out_dir: str = "results") -> str:
         json.dump(results, f, indent=2)
     return path
 
+
 # --- Main Execution ---
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Week 1 Prompt Engineering Lab Runner")
-    parser.add_argument("--models", choices=["local", "cloud", "all"], default="all", help="Subset of models to query.")
-    parser.add_argument("--custom-prompt", dest="custom_prompt", help="Add an extra custom prompt variant.")
-    parser.add_argument("--log-json", action="store_true", help="Write results to results/week1_run_<timestamp>.json")
-    parser.add_argument("--no-chain", action="store_true", help="Skip chain-of-thought prompt variant.")
-    parser.add_argument("--timeout", type=int, default=30, help="HTTP timeout for local model queries.")
+    parser.add_argument(
+        "--models",
+        choices=["local", "cloud", "all"],
+        default="all",
+        help="Subset of models to query.",
+    )
+    parser.add_argument(
+        "--custom-prompt",
+        dest="custom_prompt",
+        help="Add an extra custom prompt variant.",
+    )
+    parser.add_argument(
+        "--log-json",
+        action="store_true",
+        help="Write results to results/week1_run_<timestamp>.json",
+    )
+    parser.add_argument(
+        "--no-chain", action="store_true", help="Skip chain-of-thought prompt variant."
+    )
+    parser.add_argument(
+        "--timeout", type=int, default=30, help="HTTP timeout for local model queries."
+    )
     args = parser.parse_args()
 
     prompts = build_prompts(args.custom_prompt)
@@ -138,8 +164,8 @@ if __name__ == "__main__":
         "Ollama (Mistral)": lambda p: query_ollama(p, model="mistral"),
     }
     cloud_models: Dict[str, Callable[[str], str]] = {
-        "OpenAI (GPT-3.5)": query_openai,
-        "Anthropic (Claude 3 Haiku)": query_anthropic,
+        # "OpenAI (GPT-3.5)": query_openai,
+        # "Anthropic (Claude 3 Haiku)": query_anthropic,
         "Google (Gemini Pro)": query_gemini,
     }
 
@@ -161,7 +187,9 @@ if __name__ == "__main__":
             start = time.time()
             response = query_function(prompt_text)
             elapsed = time.time() - start
-            print(f"Response from {model_name} (latency: {elapsed:.2f}s):\n{response}\n")
+            print(
+                f"Response from {model_name} (latency: {elapsed:.2f}s):\n{response}\n"
+            )
             print("-" * 40)
             summary = format_summary_row(model_name, prompt_name, response)
             summary["latency_s"] = f"{elapsed:.2f}"
@@ -170,7 +198,9 @@ if __name__ == "__main__":
     # Print summary table
     print("\nSUMMARY (Model | Variant | Words | Latency | Preview)")
     for row in summary_rows:
-        print(f"- {row['model']} | {row['prompt_variant']} | {row['length']} | {row.get('latency_s','?')}s | {row['preview']}")
+        print(
+            f"- {row['model']} | {row['prompt_variant']} | {row['length']} | {row.get('latency_s','?')}s | {row['preview']}"
+        )
 
     if args.log_json:
         out_path = write_json(summary_rows)
